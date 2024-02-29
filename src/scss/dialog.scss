@@ -1,0 +1,26 @@
+dialog {
+  border-radius: 10px;
+  padding: 20px;
+  &::backdrop {
+    background-color: rgb(4, 4, 16, 0.9);
+    backdrop-filter: blur(5px);
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+  }
+  img {
+    margin-bottom: 20px;
+  }
+  button {
+    background: #0072d2;
+    color: #f9f9f9;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px 20px;
+  }
+}

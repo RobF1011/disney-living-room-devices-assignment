@@ -1,0 +1,88 @@
+body {
+  background: $body-background-color;
+  background: $body-background-gradient;
+  color: $foreground-color;
+  font-family: 'DINP-R', arial, serif;
+}
+
+header {
+  font-size: 2rem;
+  background-color: rgba(0,0,0,0.6);
+  padding: 20px 40px;
+  color: $caption-color;
+  .logo-container {
+    min-width: 79px;
+    height: 48px;
+    margin-right: 32px;
+    .logo {
+      background-color: transparent;
+      background-image: url(https://static-assets.bamgrid.com/product/disneyplus/images/logo.1a56f51c764022ee769c91d894d44326.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      height: 100%;
+      min-height: 38px;
+      min-width: 63px;
+      width: 100%;
+    }
+  }
+}
+
+main {
+  color: $white;
+  margin: 20px auto;
+  padding: 40px;
+  width: 90%;
+  border-radius: 5px;
+
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+    padding: 20px;
+  }
+
+  h3 {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .collection {
+    // width: 300%;
+    margin-bottom: 40px;
+    .collection-row {
+      display: grid;
+      // grid-auto-flow: column;
+      grid-template-columns: repeat(auto-fit, minmax(17%, 1fr));
+      gap: 30px; 
+      transition: transform 0.5s ease;
+
+      .collection-item {
+        flex: 0 0 auto;
+        width: 100%;
+        border: 3px solid transparent;
+        border-radius: 5px;
+        &:focus {
+          border-color: #fff;
+          outline: none;
+          transform: scale(1.1);
+          transition: transform 0.1s ease;
+          & img {
+            box-shadow: none;
+          }
+        }
+        img {
+          border-radius: 5px;
+          box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px, rgba(0, 0, 0, 0.73) 0px 16px 10px -10px;
+        }
+      }
+    }
+  }
+}
+
+a {
+  color: $link-color;
+
+  &:hover {
+    color: $black;
+  }
+}
