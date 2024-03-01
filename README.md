@@ -13,6 +13,7 @@ It can be viewed on the web at (https://disney.robf.dev/)
 
 Additional notes:
 - The ref sets are loaded dynamically as you move down the page
+- 0 dependencies! Exclusively uses HTML, CSS, JavaScript.
 
 ## Local Setup (Using npm)
 1. Clone the repo

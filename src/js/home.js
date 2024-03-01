@@ -18,14 +18,22 @@ class HomePage extends HTMLElement {
   showLoadingScreen() {
     const loaderWrapper = document.createElement('div');
     loaderWrapper.classList.add('loader-wrapper');
-    const loaderHTML = `
-      <div class="loader"></div>
-      <div class="firework"></div>
-      <div class="firework"></div>
-      <div class="firework"></div>
-    `
-    loaderWrapper.innerHTML = loaderHTML;
-    document.body.appendChild(loaderWrapper)
+    
+    const loader = document.createElement('div');
+    loader.classList.add('loader');
+    const firework1 = document.createElement('div');
+    firework1.classList.add('firework');
+    const firework2 = document.createElement('div');
+    firework2.classList.add('firework');
+    const firework3 = document.createElement('div');
+    firework3.classList.add('firework');
+    
+    loaderWrapper.appendChild(loader);
+    loaderWrapper.appendChild(firework1);
+    loaderWrapper.appendChild(firework2);
+    loaderWrapper.appendChild(firework3);
+
+    document.body.appendChild(loaderWrapper);
     document.body.style.overflow = "hidden";
   }
 
@@ -80,45 +88,69 @@ class HomePage extends HTMLElement {
       const collection = data.containers[i];
       
       if (collection.set.refId) {
-        // Create a placeholder for the ref data
-        const placeholder = document.createElement('div');
-        placeholder.classList.add('collection');
-        const placeholderHTML = `
-          <h3 class="collection-title">Placeholder</h3>
-          <ul class="collection-row">
-            <li class="collection-item">
-              <img src="https://fakeimg.pl/500x281">
-            </li>
-          </ul>
-        `;
-        placeholder.innerHTML = placeholderHTML;
-        fragment.appendChild(placeholder);
+         // Create a placeholder for the ref data
+         const placeholder = document.createElement('div');
+         placeholder.classList.add('collection');
+         
+         const h3 = document.createElement('h3');
+         h3.classList.add('collection-title');
+         h3.textContent = 'Placeholder';
+         
+         const ul = document.createElement('ul');
+         ul.classList.add('collection-row');
+         
+         const li = document.createElement('li');
+         li.classList.add('collection-item');
+         
+         const img = document.createElement('img');
+         img.src = 'https://fakeimg.pl/500x281';
+         
+         li.appendChild(img);
+         ul.appendChild(li);
+         
+         placeholder.appendChild(h3);
+         placeholder.appendChild(ul);
+         
+         fragment.appendChild(placeholder);
 
         // Start observing the placeholder
         this.observePlaceholder(placeholder, collection.set.refId);
         continue;
       }
+      
+      // Create elements for collection container
       const collectionContainer = document.createElement('div');
       collectionContainer.classList.add('collection');
-      collectionContainer.setAttribute('data-collection-id', collection.set.setId);
-      collectionContainer.setAttribute('data-collection-title', collection.set.text?.title?.full?.set?.default?.content || 'No Title');
+      collectionContainer.dataset.collectionId = collection.set.setId;
+      collectionContainer.dataset.collectionTitle = collection.set.text?.title?.full?.set?.default?.content || 'No Title';
 
-      const collectionHtml = `
-        <h3 class="collection-title">${collection.set.text?.title?.full?.set?.default?.content || 'No Title'}</h3>
-        <ul class="collection-row"></ul>
-      `;
-      collectionContainer.innerHTML = collectionHtml;
+      // Create element for collection title
+      const h3 = document.createElement('h3');
+      h3.classList.add('collection-title');
+      h3.textContent = collection.set.text?.title?.full?.set?.default?.content || 'No Title';
+      
+      // Create element for collection row
+      const ul = document.createElement('ul');
+      ul.classList.add('collection-row');
 
+      // Append children to collection container
+      collectionContainer.appendChild(h3);
+      collectionContainer.appendChild(ul);
+
+      // Append the collection container to the fragment
       fragment.appendChild(collectionContainer);
       const collectionItems = collection.set.items || [];
       this.renderCollectionItems(collectionItems, collectionContainer);
     }
 
+    // Attach the completed fragment to the custom element
     this.appendChild(fragment);
+    
     // Attach event listeners
     const allItems = this.querySelectorAll('.collection-item');
     attachEventListeners(allItems);
 
+    // focus on the first collection item
     const firstCollectionItem = this.querySelector('.collection-item');
     firstCollectionItem.focus();
   }
@@ -134,10 +166,10 @@ class HomePage extends HTMLElement {
         if (entry.isIntersecting) {
           // Stop observing once it's in view
           this.intersectionObserver.unobserve(placeholder);
-          // Fetch reference content data
+          // Fetch refId content data
           this.fetchRefContent(refId)
             .then(data => {
-              // Render the reference content data
+              // Render the ref content data
               this.renderRefContent(data, placeholder);
             })
             .catch(error => {
@@ -159,7 +191,7 @@ class HomePage extends HTMLElement {
     const refCollectionTitle = data.text?.title?.full?.set?.default?.content || 'No Title';
     const refCollectionItems = data.items || [];
 
-    placeholder.firstElementChild.innerHTML = refCollectionTitle;
+    placeholder.firstElementChild.textContent  = refCollectionTitle;
 
     this.renderCollectionItems(refCollectionItems, placeholder);
 
@@ -175,7 +207,8 @@ class HomePage extends HTMLElement {
    */
   renderCollectionItems(collectionItems, collectionContainer) {
     const collectionRow = collectionContainer.querySelector('.collection-row');
-    collectionRow.innerHTML = ''; // Clear existing items
+    // Clear existing items
+    collectionRow.innerHTML = ''; 
 
     for (let i = 0; i < collectionItems.length; i++) {
       const item = collectionItems[i];
@@ -202,9 +235,12 @@ class HomePage extends HTMLElement {
     listItem.dataset.title = title;
     listItem.dataset.releaseYear = releaseYear;
     listItem.dataset.imageUrl = tileImageUrl;
-    listItem.innerHTML = `
-          <img src="${tileImageUrl}" alt="${title}">
-    `;
+
+    const img = document.createElement('img');
+    img.src = tileImageUrl;
+    img.alt = title;
+    
+    listItem.appendChild(img);
 
     // Attach error event listener to the image
     const image = listItem.querySelector('img');
