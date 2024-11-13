@@ -73,6 +73,10 @@ module.exports = {
           filename: 'fonts/[name].[hash:6][ext]',
         },
       },
+      {
+        test: /\.json$/,
+        type: 'asset/resource',
+      },
     ],
   },
   optimization: {
@@ -116,6 +120,11 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [
+        {
+          from: path.resolve(environment.paths.source, 'data'),
+          to: path.resolve(environment.paths.output, 'data'),
+          toType: 'dir',
+        },
         {
           from: path.resolve(environment.paths.source, 'images'),
           to: path.resolve(environment.paths.output, 'images'),

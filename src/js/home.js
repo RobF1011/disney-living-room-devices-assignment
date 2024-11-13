@@ -8,6 +8,7 @@ class HomePage extends HTMLElement {
   }
 
   connectedCallback() {
+    window.scrollTo(0, 0);
     this.showLoadingScreen();
     this.fetchHomeContent();
   }
@@ -54,7 +55,7 @@ class HomePage extends HTMLElement {
    */
   async fetchHomeContent() {
     try {
-      const response = await fetch('https://cd-static.bamgrid.com/dp-117731241344/home.json');
+      const response = await fetch('./data/home.json');
       const homeData = await response.json();
       const homeCollection = homeData.data.StandardCollection;
       await this.renderContent(homeCollection);
@@ -70,7 +71,7 @@ class HomePage extends HTMLElement {
    * @returns {Array} refSet
    */
   async fetchRefContent(refId) {
-    const response = await fetch(`https://cd-static.bamgrid.com/dp-117731241344/sets/${refId}.json`);
+    const response = await fetch(`./data/${refId}.json`);
     const refData = await response.json();
     const refType = Object.keys(refData.data)[0];
     const refSet = refData.data[refType];
@@ -147,8 +148,8 @@ class HomePage extends HTMLElement {
     this.appendChild(fragment);
     
     // Attach event listeners
-    const allItems = this.querySelectorAll('.collection-item');
-    attachEventListeners(allItems);
+    const allRows = this.querySelectorAll('.collection-row');
+    attachEventListeners(allRows);
 
     // focus on the first collection item
     const firstCollectionItem = this.querySelector('.collection-item');
@@ -196,8 +197,8 @@ class HomePage extends HTMLElement {
     this.renderCollectionItems(refCollectionItems, placeholder);
 
     // Re-attach event listeners
-    const allItems = this.querySelectorAll('.collection-item');
-    attachEventListeners(allItems);
+    const allRows = this.querySelectorAll('.collection-row');
+    attachEventListeners(allRows);
   }
 
   /**
