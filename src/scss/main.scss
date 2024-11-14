@@ -67,7 +67,7 @@ main {
         &:last-child {
           margin-right: 190px;
         }
-        &:focus {
+        &:focus, &:hover {
           border-color: #fff;
           outline: none;
           transform: scale(1.1);
