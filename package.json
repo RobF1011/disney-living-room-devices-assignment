@@ -23,6 +23,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "gh-pages": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "image-minimizer-webpack-plugin": "^4.0.0",
     "imagemin": "^8.0.1",
@@ -60,7 +61,8 @@
     "production": "webpack --config configuration/webpack.prod.config.js --mode=production",
     "lint:sass": "sass-lint -v -q",
     "lint:js": "eslint --ext .js src/js/",
-    "stats": "webpack --config configuration/webpack.prod.config.js --mode=production --json > dist/stats.json && webpack-bundle-analyzer dist/stats.json"
+    "stats": "webpack --config configuration/webpack.prod.config.js --mode=production --json > dist/stats.json && webpack-bundle-analyzer dist/stats.json",
+    "deploy": "npm run production && gh-pages -d dist"
   },
   "target": "web"
 }

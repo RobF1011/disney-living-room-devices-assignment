@@ -247,7 +247,7 @@ class HomePage extends HTMLElement {
     const image = listItem.querySelector('img');
     image.addEventListener('error', () => {
         // If image fails to load, replace with fallback image
-        image.src = '../images/wrecked.jpg';
+        image.src = './images/wrecked.jpg';
     });
 
     return listItem;
