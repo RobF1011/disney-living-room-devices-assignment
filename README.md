@@ -2,7 +2,7 @@
 
 A Home Page similar to the current Disney+ experience.
 
-It can be viewed on the web at (https://disney.robf.dev/)
+It can be viewed on the web at (https://robf1011.github.io/disney-plus-tv/)
 
 - A fun loading screen is displayed while the initial data is being fetched
   - For demo purposes there is a 3 sec timeout to simulate a slower connection
